@@ -1,0 +1,76 @@
+$def with (page)
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$page.get("title", "")</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/datepicker.css" media="screen" />
+</head>
+<body>
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"></a>
+            </div>
+            <div class="navbar-collapse collapse" style="height: 1px;">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Home</a></li>
+                    $if session.privilege == 1:
+                        <li>
+                            <a href="/savings">Summary</a>
+                        </li>
+                        <li>
+                            <a href="/savings/contributions">Contributions</a>
+                        </li>
+                        <li>
+                            <a href="/savings/contchecklist">Contribution Checklist</a>
+                        </li>
+                        <li>
+                            <a href="/savings/loans">Loans</a>
+                        </li>
+                        <li>
+                            <a href="/savings/guidelines">Guidelines</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/savings/customers">Customers</a>
+                        </li>
+                        <li><a href="/users">Users</a></li>
+                    $if session.login > 0:
+                        <li><a href="/logout">Log out [$session.user]</a></li>
+                    $else:
+                        <li><a href="/login">Log in</a></li>
+                        <li><a href="/register">Sign up</a></li>
+                    <li><a href="#">Gallery</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        $:page
+    </div>
+    <div class="footer">
+        <p class="p_footer">
+            started by Marvin Casagnap ( <a href="mailto:marvin.casagnap@gmail.com">marvin.casagnap@gmail.com</a> )</br>
+            powered by <a href="http://www.python.org/download/releases/2.7/">Python 2.7</a> and <a href="http://webpy.org/">web.py</a></br>
+            CSS designed and built using the wonderful <a href="http://getbootstrap.com/">Bootstrap</a>
+        </p>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap-datepicker.js"></script>
+    <script src="/static/js/formvalidator.js"></script>
+    <script src="/static/js/datepicker.js"></script>
+</body>
+</html>

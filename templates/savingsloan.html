@@ -1,0 +1,32 @@
+$def with (loans)
+$var title = 'Loan'
+
+<div class="container">
+<a class="btn btn-default btn-success" href="/savings/loans/add">Add new loan</a></br></br>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th>Name</th>
+            <th>Date Released</th>
+            <th>Date Due</th>
+            <th>Amount</th>
+            <th>Interest</th>
+            <th>Total payable</th>
+            <th>Total payment</th>
+            <th>Outstanding Balance</th>
+            <th>Fully Paid on</th>
+        </tr>
+        $for loan in loans:
+            <tr>
+                <td><a href="/savings/loans/edit/$loan.id">$loan.name</a></td>
+                <td>$loan.date_rel</td>
+                <td>$loan.date_due</td>
+                <td>$loan.amount</td>
+                <td>$loan.interest</td>
+                <td>$loan.total_payable</td>
+                <td>$loan.total_payment</td>
+                <td>$loan.outstanding_bal</td>
+                <td>$loan.fully_paidon</td>
+            </tr>
+    </table>
+
+</div>

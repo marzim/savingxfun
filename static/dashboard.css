@@ -1,0 +1,51 @@
+div.tabs_underline {
+    border-top: 3px solid #C1EDFF;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+ul.dashboard_tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard_tab {
+    font-size: 14px;
+    padding: 7px 15px 7px 15px;
+    float: left;
+    margin-bottom: -3px;
+    margin-top: 3px;
+}
+
+.dashboard_tab.selected {
+    border-top-left-radius: 12px;
+    -moz-border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    -moz-border-top-right-radius: 12px;
+    border-left: 3px solid #C1EDFF;
+    border-right: 3px solid #C1EDFF;
+    border-top: 3px solid #C1EDFF;
+    border-bottom: 4px solid #FFFFFF;
+    margin-top: 0px;
+}
+
+.dashboard_tab.selected a {
+    color: #444444;
+    text-decoration: none;
+}
+
+.tabs_container .alert {
+    width: 390px;
+    float: right;
+    margin-top: 5px;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 0px;
+    margin-left: auto;
+ }
+
+.tabs_container .alert:hover {
+    text-decoration: underline;
+ }

@@ -1,0 +1,47 @@
+$def with (error, user)
+$var title = 'Register'
+<h3>Register</h3>
+
+<form class="form-horizontal" role="form" method="POST" name="user_form" id="user_form">
+    <div class="form-group">
+        $if error and error['user_err']:
+            <p id="id_login_error">$error['user_err']</p>
+        <label class="col-sm-2 control-label">User name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control input-sm" style="width:40%;" placeholder="User name" id="username" name="username" required="" autofocus=""
+            $if user:
+                value="$user['username']"
+            >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amount" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control input-sm" style="width:40%;" placeholder="Email address" id="email" name="email" required=""
+            $if user:
+                value="$user['email']"
+            >
+        </div>
+    </div>
+    <div class="form-group">
+        $if error and error['pass_err']:
+            <p id="id_login_error">$error['pass_err']</p>
+        <label for="amount" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+            <input type="password" name="password" class="form-control" style="width:40%;" placeholder="Password" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amount" class="col-sm-2 control-label">Repeat password</label>
+        <div class="col-sm-10">
+            <input type="password" name="password2" class="form-control" style="width:40%;" placeholder="Repeat Password" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <button class="btn btn-lg btn-primary" style="width:40%;" type="submit">Submit</button>
+        </div>
+    </div>
+</form>

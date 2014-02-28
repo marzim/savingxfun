@@ -1,0 +1,21 @@
+$def with (customers)
+$var title = 'Customers'
+<div class="container">
+<a class="btn btn-default btn-success" href="/savings/customers/add">Add new customer</a></br></br>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Cell Number</th>
+            <th>Email</th>
+        </tr>
+        $for customer in customers:
+            <tr>
+                <td><a href="/savings/customers/edit/$customer.id">$customer.name</a></td>
+                <td>$customer.address</td>
+                <td>$customer.cellno</td>
+                <td>$customer.email</td>
+            </tr>
+    </table>
+
+</div>

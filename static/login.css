@@ -1,0 +1,14 @@
+.login {
+    height:120px;
+    width:270px;
+    margin:auto;
+    border:1px #CCC solid;
+    padding:10px;
+    background-color:#E9E9E9
+    }
+
+    input {
+    	background: #E1FFE1;
+    	border:1px #CCC solid;
+    	padding:5px;
+     }

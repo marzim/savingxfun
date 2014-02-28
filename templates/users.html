@@ -1,0 +1,23 @@
+$def with (users)
+$var title = 'Users'
+<h3>Users</h3>
+<div class="container">
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Privilege</th>
+        </tr>
+        $for user in users:
+            <tr>
+                <td>
+                $if session.user == "admin":
+                    <a href="/users/edit/$user.id">$user.user</a>
+                $else:
+                    $user.user
+                </td>
+                <td>$user.email</td>
+                <td>$user.privilege</td>
+            </tr>
+    </table>
+</div>
