@@ -30,13 +30,13 @@ class CustomerModel:
         except IndexError:
             return None
 
-    def new_customer(self, name, address, cellno, email):
-        self.db.insert('customers', name=name, address=address, cellno=cellno, email=email)
+    def new_customer(self, name, numbershares, address, cellno, email):
+        self.db.insert('customers', name=name, number_shares=numbershares, address=address, cellno=cellno, email=email)
 
     def del_customer(self,id):
         self.db.delete('customers', where="id=$id", vars=locals())
 
-    def update_customer(self, id, address, cellno, email):
-        self.db.update('customers', where='id=$id', vars=locals(), address=address, cellno=cellno, email=email)
+    def update_customer(self, id, numbershares,address, cellno, email):
+        self.db.update('customers', where='id=$id', vars=locals(), number_shares=numbershares, address=address, cellno=cellno, email=email)
 
 

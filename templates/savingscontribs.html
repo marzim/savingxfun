@@ -1,0 +1,27 @@
+$def with (contribs, customers)
+$var title = 'Contributions'
+
+<div class="container">
+<div class="breadcrumb">
+    <div class="item"><a href="/savings/contributions">Contributions</a></div>
+</div>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th>Name</th>
+            <th># shares</th>
+            <th>Total</th>
+            <th>Grand Total</th>
+            <th>Interest + Patronage Earned</th>
+            <th>Receivable</th>
+        </tr>
+        $for customer in customers:
+            <tr>
+                <td><a href="/savings/contributions/view/$customer.id">$customer.name</a></td>
+                <td>$customer.number_shares</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+    </table>
+</div>
