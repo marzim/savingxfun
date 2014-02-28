@@ -10,7 +10,8 @@ urls = (
 '/logout/?','Logout',
 '/register/?', 'register.Register',
 '/savings/?', 'savings.Savings',
-'/savings/contribution/?', 'savings.Contribution',
+'/savings/contributions/?', 'savings.Contributions',
+'/savings/contributions/view/(\d+)', 'savings.ViewContributions',
 '/savings/guidelines/?', 'savings.Guidelines',
 '/savings/loans/?', 'savings.Loans',
 '/savings/loans/add/?', 'savings.AddLoan',
@@ -78,6 +79,6 @@ class ErrorPage:
 def notfound():
     raise web.seeother('/errorpage')
 
-app.notfound = notfound
+#app.notfound = notfound
 application = app.wsgifunc()
 
