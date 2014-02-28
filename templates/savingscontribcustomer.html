@@ -1,0 +1,23 @@
+$def with (contribs, name)
+$var title = name + "'s Contributions"
+
+<div class="container">
+<div class="breadcrumb">
+    <div class="item"><a href="/savings/contributions">Contributions</a> > $name</div>
+</div>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th>Month</th>
+            <th>Amount</th>
+            <th>Penalty</th>
+            <th>Total</th>
+        </tr>
+        $for contrib in contribs:
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+    </table>
+</div>

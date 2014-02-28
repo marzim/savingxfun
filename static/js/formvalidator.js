@@ -28,6 +28,10 @@ $(document).ready(function() {
         minlength: 2,
         required: true
       },
+      numbershares:{
+          number: true,
+          required: true
+      },
       address: {
         minlength: 2,
         required: true
@@ -139,6 +143,20 @@ $(document).ready(function(){
       }catch(err){
           alert("error: " + err.message);
       }
+  });
+
+  $('#date_due').change(function()
+  {
+     var datedue = new Date($('#date_due').val());
+     var daterel = new Date($('#date_rel').val());
+     var numbermonth = parseFloat(datedue.getMonth() + 1) - parseFloat(daterel.getMonth() + 1);
+
+     if(parseFloat(numbermonth) > 0 &&
+     parseFloat(datedue.getDate()) >= parseFloat(daterel.getDate()))
+     {
+        alert("number of months:" + numbermonth + " duedate: " + parseFloat(datedue.getDate()));
+     }
+
   });
 
     $('#interest').val(Math.round($('#interest_hv').val()));

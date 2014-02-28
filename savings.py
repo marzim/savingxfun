@@ -1,7 +1,7 @@
 import web
 from savingsmodel import SavingsModel
 from customermodel import CustomerModel
-from base import render,  withprivilege
+from base import render,  withprivilege, sendemail
 from decimal import Decimal
 
 model = SavingsModel()
@@ -12,7 +12,7 @@ class Savings:
     def GET(self):
         if withprivilege():
             savings = model.get_allsavings()
-            return render.savings(savings)
+            return render.savingssummary(savings)
         else:
             raise web.notfound()
 
@@ -20,7 +20,15 @@ class Contributions:
 
     def GET(self):
         if withprivilege():
-            return
+            customers = custmodel.get_customers()
+            return render.savingscontribs("",customers)
+        else:
+            raise web.notfound()
+
+class ViewContributions:
+    def GET(self,id):
+        if withprivilege():
+            return render.savingscontribcustomer('','Marvin')
         else:
             raise web.notfound()
 
@@ -98,7 +106,7 @@ class AddCustomer:
     def POST(self):
         data = web.input()
         if not self.userisexist(data.name):
-            custmodel.new_customer(data.name, data.address, data.cellno, data.email)
+            custmodel.new_customer(data.name, Decimal(data.numbershares), data.address, data.cellno, data.email)
             raise web.seeother("/savings/customers")
         else:
             return render.savingsnewcustomer({
@@ -130,7 +138,7 @@ class EditCustomer:
     def POST(self, id):
         data = web.input()
         try:
-            custmodel.update_customer(int(id), data.address, data.cellno, data.email)
+            custmodel.update_customer(int(id), Decimal(data.numbershares), data.address, data.cellno, data.email)
             raise web.seeother("/savings/customers")
         except Exception as ex:
             print ex
