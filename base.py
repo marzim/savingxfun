@@ -37,7 +37,7 @@ t_globals = {
  'web': web,
  }
 
-render = web.template.render('/home/simplecode/web-apps/main/webpy/templates', base='base', globals=t_globals)
+render = web.template.render('/home/savingxfun/main/savingxfun/templates', base='base', globals=t_globals)
 
 def logged():
     if session.login > 0:
