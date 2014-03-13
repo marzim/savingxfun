@@ -1,4 +1,4 @@
-$def with (contribs, customers)
+$def with (dict)
 $var title = 'Contributions'
 
 <div class="container">
@@ -11,17 +11,17 @@ $var title = 'Contributions'
             <th># shares</th>
             <th>Total</th>
             <th>Grand Total</th>
-            <th>Interest + Patronage Earned</th>
+            <th>Interest </br> Patronage Earned</th>
             <th>Receivable</th>
         </tr>
-        $for customer in customers:
+        $for d in dict:
             <tr>
-                <td><a href="/savings/contributions/view/$customer.id">$customer.name</a></td>
-                <td>$customer.number_shares</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><a href="/savings/contributions/view/$d.custid">$d.name</a></td>
+                <td>$d.numberShares</td>
+                <td>$d.total</td>
+                <td>$d.grandTotal</td>
+                <td>$d.interestpat</td>
+                <td>$d.receivable</td>
             </tr>
     </table>
 </div>

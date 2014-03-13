@@ -1,11 +1,14 @@
 $def with (customers,loan,name,state)
 $var title = state + ' loan'
-<h3>$state loan</h3>
-<form class="form-horizontal" role="form" method="post" name="loan_form" id="loan_form">
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-10">
-            <select class="form-control input-sm" style="width:40%;" name="name" id="name" autofocus=""
+
+<div class="row-fluid">
+    <h2>$state loan</h2>
+</div>
+<form class="well" role="form" method="post" name="loan_form" id="loan_form">
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Name</label>
+            <select class="form-control input-sm" style="width:50%;" name="name" id="name" autofocus=""
             $if loan:
                 readonly="">
                 <option>$name</option>
@@ -15,11 +18,9 @@ $var title = state + ' loan'
                     <option value="$customer.id">$customer.name</option>
             </select>
         </div>
-    </div>
-   <div class="form-group">
-        <label class="col-sm-2 control-label">Date Released</label>
-        <div class="col-sm-10">
-            <div class="input-group date" style="width:40%;" id="dp3" data-date-format="mm-dd-yyyy">
+        <div class="col-6 col-sm-6 col-lg-4">
+        <label>Date Release</label>
+        <div class="input-group date" id="dp3" style="width:50%;" data-date-format="mm-dd-yyyy">
               <input class="form-control input-sm" type="text" readonly="" name="date_rel" id="date_rel"
               $if loan:
                 value="$loan.date_rel"
@@ -28,10 +29,17 @@ $var title = state + ' loan'
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Date Due</label>
-        <div class="col-sm-10">
-            <div class="input-group date" style="width:40%;" id="dp3" data-date-format="mm-dd-yyyy">
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Amount</label>
+            <input type="text" class="form-control input-sm" style="width:50%;" placeholder="Amount" id="amount" name="amount" required=""
+                $if loan:
+                    value="$loan.amount"
+                  >
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+        <label>Date Due</label>
+            <div class="input-group date" style="width:50%;" id="dp3" data-date-format="mm-dd-yyyy">
               <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due"
               $if loan:
                 value="$loan.date_due"
@@ -40,19 +48,10 @@ $var title = state + ' loan'
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="amount" class="col-sm-2 control-label">Amount</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control input-sm" style="width:40%;" placeholder="Amount" id="amount" name="amount" required=""
-            $if loan:
-                value="$loan.amount"
-              >
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Interest per Month</label>
-        <div class="col-sm-10">
-            <select class="form-control input-sm" style="width:40%;" name="interest" id="interest">
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Interest per Month</label>
+            <select class="form-control input-sm" style="width:50%;" name="interest" id="interest" required="">
                 <option value="3">3%</option>
                 <option value="4">4%</option>
                 <option value="5">5%</option>
@@ -65,62 +64,64 @@ $var title = state + ' loan'
             <input type="hidden" id="interest_hv"
             $if loan:
                 value="$loan.interest"
+            $else:
+                value="3"
             >
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Payment</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" style="width:40%;" placeholder="Payment" name="payment" id="payment">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Total Payable</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" style="width:40%;" placeholder="Total Payable" name="t_payable" id="t_payable" required="" readonly=""
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total Payable</label>
+            <input type="text" class="form-control" style="width:50%;" placeholder="Total Payable" name="t_payable" id="t_payable" required="" readonly=""
             $if loan:
                 value="$loan.total_payable"
             >
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Total Payment</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" style="width:40%;" placeholder="Total Payment" name="t_payment" id="t_payment" required="" readonly=""
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Payment</label>
+            <input type="text" class="form-control" style="width:50%;" placeholder="Payment" name="payment" id="payment">
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total Payment</label>
+            <input type="text" class="form-control" style="width:50%;" placeholder="Total Payment" name="t_payment" id="t_payment" readonly=""
             $if loan:
                 value="$loan.total_payment"
+            $else:
+                value="0"
             >
             <input type="hidden" id="totalpayment_hv"
             $if loan:
                 value="$loan.total_payment"
+            $else:
+                value="0"
             >
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Outstanding Balance</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" style="width:40%;" placeholder="Outstanding Balance" name="outs_bal" id="outs_bal" required="" readonly=""
-            $if loan:
-                value="$loan.outstanding_bal"
-            >
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Fully Paid on</label>
-        <div class="col-sm-10">
-            <div class="input-group date" style="width:40%;" id="dp3" data-date-format="mm-dd-yyyy">
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Fully Paid On</label>
+            <div class="input-group date" style="width:50%;" id="dp3" data-date-format="mm-dd-yyyy">
               <input class="form-control input-sm" type="text" readonly="" name="fully_paidon" id="fully_paidon"
               $if loan:
                   value="$loan.fully_paidon"
               >
               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-              </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Outstanding Balance</label>
+            <input type="text" class="form-control" style="width:50%;" placeholder="Outstanding Balance" name="outs_bal" id="outs_bal" required="" readonly=""
+            $if loan:
+                value="$loan.outstanding_bal"
+            >
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label"></label>
-        <div class="col-sm-10">
-            <button class="btn btn-lg btn-primary" style="width:40%;" type="submit">Submit</button>
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            </br>
+            <button class="btn btn-lg btn-primary" style="width:50%;" type="submit">Submit</button>
         </div>
     </div>
 </form>
+
+

@@ -1,0 +1,70 @@
+$def with(customer, month, shared_value, contrib, penalty)
+$var title = customer.name + " add contribution"
+
+<div class="breadcrumb">
+    <div class="item"><a href="/savings/contributions">Contributions</a> >
+        <a href="/savings/contributions/view/$customer.id">$customer.name Contributions</a>
+    </div>
+    <div class="item">
+        <p class="form-control-static text-warning">
+            $if customer:
+                $customer.name | Number of shares: $customer.number_shares | Amount: $shared_value </p>
+    </div>
+</div>
+<form class="well" role="form" method="post" name="newcontrib_form" id="newcontrib_form">
+    <div class="row">
+        <input type='hidden' id="penalty_hv" value='$penalty'>
+        <input type='hidden' id="numshares_hv" value='$customer.number_shares'>
+        <input type='hidden' id="ispenalty_hv" name="ispenalty_hv"
+        $if contrib:
+            value="$contrib.ispenalty"
+        $else:
+            value="0"
+        >
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Contribution as of: $month</label></br></br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Amount</label>
+            <input type="text" class="form-control input-sm" style="width:50%;" placeholder="Amount" id="newcontrib_amount" name="newcontrib_amount" required="" autofocus=""
+            $if contrib:
+                value="$contrib.amount"
+            $else:
+                value="$shared_value.strip()"
+            >
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Penalty</label>
+            <input type="text" class="form-control input-sm" style="width:50%;" placeholder="Penalty" id="newcontrib_penalty" name="newcontrib_penalty" required="" readonly=""
+            $if contrib:
+                value="$contrib.penalty"
+            $else:
+                value="0"
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <div class="checkbox">
+                <label><input type="checkbox" id="ispenalty" name="ispenalty">In Penalty?</label>
+            </div>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total</label>
+            <input type="text" class="form-control input-sm" style="width:50%;" placeholder="Total" id="newcontrib_total" name="newcontrib_total" required="" readonly=""
+            $if contrib:
+                value="$contrib.amount"
+            $else:
+                value="$shared_value.strip()"
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            </br>
+            <button class="btn btn-lg btn-primary" style="width:50%;" type="submit">Submit</button>
+        </div>
+    </div>
+</form>

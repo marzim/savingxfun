@@ -21,12 +21,14 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+
   $('#customer_form').validate(
   {
     rules: {
       name: {
         minlength: 2,
-        required: true
+        required: true,
+        alphanumeric: true
       },
       numbershares:{
           number: true,
@@ -52,7 +54,8 @@ $(document).ready(function() {
     rules: {
       username: {
         minlength: 3,
-        required: true
+        required: true,
+        alphanumeric: true
       },
       password: {
         minlength: 6,
@@ -88,13 +91,12 @@ $(document).ready(function() {
         required: true,
         number: true
       },
-      t_payment: {
-        required: true,
-        number: true
-      },
       outs_bal: {
         required: true,
         number: true
+      },
+      interest:{
+        required: true
       },
       fully_paidon: {
         required: true,
@@ -106,19 +108,25 @@ $(document).ready(function() {
 
 $(document).ready(function(){
    $('#amount').change(function(){
-      var percent = $("#interest").val() / 100;
+      var nummonths = get_nummonths();
+      var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
       var amount = $('#amount').val();
       var t_pay = parseFloat(amount) + parseFloat(amount * percent);
-      $('#t_payable').val(t_pay);
-      $('#t_payment').change();
+      if(t_pay){
+        $('#t_payable').val(t_pay);
+        $('#t_payment').change();
+      }
   });
 
   $('#interest').change(function(){
-      var percent = $("#interest").val() / 100;
+      var nummonths = get_nummonths();
+      var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
       var amount = $('#amount').val();
       var t_pay = parseFloat(amount) + parseFloat(amount * percent);
-      $('#t_payable').val(t_pay);
-      $('#t_payment').change();
+      if(t_pay){
+        $('#t_payable').val(t_pay);
+        $('#t_payment').change();
+      }
   });
 
   $('#payment').change(function(){
@@ -127,8 +135,10 @@ $(document).ready(function(){
      if(tpayment){
          payment += parseFloat(tpayment);
      }
-     $('#t_payment').val(payment);
-     $('#t_payment').change();
+     if(payment){
+        $('#t_payment').val(payment);
+        $('#t_payment').change();
+     }
   });
 
   $('#t_payment').change(function(){
@@ -137,7 +147,7 @@ $(document).ready(function(){
           var tpayment = parseFloat($('#t_payment').val());
           if(!tpayment){
             $('#outs_bal').val(tpayable);
-          }else{
+          }else if(tpayable && tpayment){
               $('#outs_bal').val(tpayable - tpayment);
           }
       }catch(err){
@@ -147,18 +157,55 @@ $(document).ready(function(){
 
   $('#date_due').change(function()
   {
+    $('#amount').change();
+  });
+
+  $('#ispenalty').click(function()
+  {
+    if($('#ispenalty').is(':checked')){
+         var penalty = parseFloat($('#penalty_hv').val()) * parseFloat($('#numshares_hv').val());
+         var total = parseFloat($('#newcontrib_amount').val().replace(',','')) + parseFloat(penalty);
+        $('#newcontrib_penalty').val(penalty.toLocaleString());
+        $('#newcontrib_total').val(total.toLocaleString());
+        $('#ispenalty_hv').val(1)
+     }else{
+        $('#newcontrib_penalty').val(0);
+        $('#newcontrib_total').val($('#newcontrib_amount').val());
+        $('#ispenalty_hv').val(0)
+     }
+  });
+
+  function get_nummonths(){
      var datedue = new Date($('#date_due').val());
      var daterel = new Date($('#date_rel').val());
      var numbermonth = parseFloat(datedue.getMonth() + 1) - parseFloat(daterel.getMonth() + 1);
 
-     if(parseFloat(numbermonth) > 0 &&
-     parseFloat(datedue.getDate()) >= parseFloat(daterel.getDate()))
+     if(parseFloat(numbermonth) > 0)
      {
-        alert("number of months:" + numbermonth + " duedate: " + parseFloat(datedue.getDate()));
+         if(parseFloat(datedue.getDate()) > parseFloat(daterel.getDate())){
+            numbermonth += 1;
+         }
      }
+     return numbermonth <= 0 ? 1 : numbermonth;
+  }
 
+  $('#patronage').click(function()
+  {
+    if($('#patronage').is(':checked')){
+        $('#patronage_hv').val(1)
+     }else{
+        $('#patronage_hv').val(0)
+     }
   });
 
     $('#interest').val(Math.round($('#interest_hv').val()));
     $('#privilege').val($('#privilege_hv').val());
+
+    if($('#ispenalty_hv').val() === '1'){
+        $('#ispenalty').prop('checked', true);
+    }
+
+    if($('#patronage_hv').val() === '1'){
+        $('#patronage').prop('checked', true);
+    }
 });

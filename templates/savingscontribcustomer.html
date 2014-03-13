@@ -1,23 +1,27 @@
-$def with (contribs, name)
-$var title = name + "'s Contributions"
+$def with (dict, customer, sharedval)
+$var title = customer.name + "'s Contributions"
 
-<div class="container">
 <div class="breadcrumb">
-    <div class="item"><a href="/savings/contributions">Contributions</a> > $name</div>
+    <div class="item"><a href="/savings/contributions">Contributions</a></div>
+    <div class="item">
+        <p class="form-control-static text-warning">
+        $if customer:
+            $customer.name | Number of shares: $customer.number_shares | Amount: $sharedval </p>
+    </div>
 </div>
-    <table class="table table-striped table-bordered table-condensed">
+
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <th>Month</th>
+        <th>Amount</th>
+        <th>Penalty</th>
+        <th>Total</th>
+    </tr>
+    $for d in dict:
         <tr>
-            <th>Month</th>
-            <th>Amount</th>
-            <th>Penalty</th>
-            <th>Total</th>
+            <td><a href="/savings/contributions/add/$d.monthid/$customer.id">$d.month</a></td>
+            <td>$d.amount</td>
+            <td>$d.penalty</td>
+            <td>$d.total</td>
         </tr>
-        $for contrib in contribs:
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-    </table>
-</div>
+</table>

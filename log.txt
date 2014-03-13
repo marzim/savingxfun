@@ -1,0 +1,1 @@
+totalinterest: 60.0 pat1: 7.2 interest: 2.514285714285714319549654084 interestpercustomer: 15.08571428571428591729792450 penalty: 0.0

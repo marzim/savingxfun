@@ -1,3 +1,63 @@
 $def with (guides)
 
-<h1>follow the fucking guidelines.</h1>
+<h1>Savings Fund Guidelines</h1>
+<form class="well" role="form" method="post" name="guidelines_form" id="guidelines_form">
+    <h4>Contribution:</h4>
+    <ul>
+        <li>Share per member is Php <input type="text" style="width:50px;" id="share_value" name="share_value" required="" autofocus=""
+            $if guides:
+                value="$guides.share_value"
+            $else:
+                value="0"
+            > only</li>
+        <li>Maximum of 6 shares per member only.</li>
+        <li>Extension members (father/mother/brother/sister/boyfriend/girlfriend) are allowed to join with a maximum of 4 shares only.</li>
+        <li>Shares are to be paid within 3 working days after each payday (every 15th and end of the month).</li>
+        <li>A penalty of Php <input type="text" style="width:50px;" id="penalty" name="penalty" required=""
+            $if guides:
+                value="$guides.penalty"
+            $else:
+                value="0"
+            > per share will be imposed for those members who failed to pay on the due date.</li>
+    </ul>
+    <h4>Loan:</h4>
+    <ul>
+        <li>Members are allowed to loan a maximum of Php 5,000 on a single loan depending on the total amount saved. Amount beyond Php 5,000 is subject for approval.</li>
+        <li>Members can re-loan, provided he/she has no outstanding loans or has settled his/her remaining balance of the previous loan. Re-loan with existing unsettled loan is subject for approval.</li>
+        <li>Members are charged a monthly interest of 3% of the total loan amount.</li>
+        <li>Non-members are also allowed to loan a maximum of Php 2,000.00, but he/she must be endorsed by a member. Members will be responsible to collect the payables.</li>\
+        <li>Non-members are charged a monthly interest of 5% of the total loan amount.</li>
+        <li>All loans are to be paid in 4 consecutive paydays after the loan release date.</li>
+        <li>A penalty of 3% for members and 5% for non-members shall be imposed monthly on loans not paid after due date. Due date is 2 months after the loan release date
+      (i.e. Loan release date is January 15, 2014, due date will be March 15, 2014).</li>
+    </ul>
+    <h4>Computation:</h4>
+    <ul>
+        <li>Interest are computed by Total Interest - Patronage divided by Total Shares (interest = total_interest - patronage / total_shares)</li>
+        <li>Patronage is computed by number of members(1% per member) and a maximum of <input type="text" style="width:50px;" id="patronage" name="patronage" required=""
+            $if guides:
+                value="$guides.patronage"
+            $else:
+                value="12"
+            >% or which ever is lower. </li>
+    </ul>
+    <h4>Year-end:</h4>
+    <ul>
+        <li>Duration of this Savings fund will be from January 15, 2014 to November 30, 2014.</li>
+        <li>Member’s total shares and interests will be given to all members on or before December 15, 2014.</li>
+        <li>September 30, 2014 will be the last day for members to loan money. This is to ensure that all payables will be collected prior to the distribution date.</li>
+        <li>Patronage share will be given to the collector for his/her service, and shall be 1% per member or 12%, whichever is lower.</li>
+        <li>The percent of patronage share shall be taken out from the total interest earned.
+(i.e Total number of persons who joined the Savings Fund: 8</li>
+        <li>Hence, 8% of the interest earned shall be given to the collector for his/her service.)</li>
+        <li>100% percent of the Net income will be divided among all members based on their number of shares. Net income is Gross interest earned less patronage share.</li>
+        <li>Higher number of shares equals higher interest share.</li>
+    </ul>
+    $if session.privilege == 1:
+        <div class="row">
+            <div class="col-6 col-sm-6 col-lg-4">
+                </br>
+                <button class="btn btn-lg btn-primary" style="width:50%;" type="submit">Submit</button>
+            </div>
+        </div>
+</form>

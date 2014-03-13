@@ -18,7 +18,10 @@ class SavingsModel:
         return
 
     def get_guidelines(self):
-        return
+        return self.db.select('guides', order='id DESC', vars=locals())[0]
+
+    def update_guidelines(self, id, sharevalue, penalty, patronage):
+        self.db.update('guides', where='id=$id', vars=locals(), share_value=sharevalue, penalty=penalty, patronage=patronage)
 
     def get_loans(self):
         return self.db.select(['customers', 'loans'], where='loans.customerid=customers.id', order='loans.id DESC')

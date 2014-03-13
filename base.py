@@ -12,6 +12,7 @@ urls = (
 '/savings/?', 'savings.Savings',
 '/savings/contributions/?', 'savings.Contributions',
 '/savings/contributions/view/(\d+)', 'savings.ViewContributions',
+'/savings/contributions/add/(\d+)/(\d+)', 'savings.NewContributions',
 '/savings/guidelines/?', 'savings.Guidelines',
 '/savings/loans/?', 'savings.Loans',
 '/savings/loans/add/?', 'savings.AddLoan',
@@ -52,11 +53,18 @@ def withprivilege():
     else:
         return False
 
+def logging(text):
+    file = open("/home/savingxfun/main/savingxfun/log.txt", "wt")
+    print >> file, text
+
 def superuser():
     if session.user == "admin":
         return True
     else:
         return False
+
+def formatNumber(number):
+    return '{:20,.2f}'.format(number)
 
 def sendemail(to, subject, message):
     web.sendmail('savingxfun@gmail.com', to, subject, message)

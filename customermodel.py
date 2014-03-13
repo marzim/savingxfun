@@ -24,19 +24,27 @@ class CustomerModel:
         except IndexError:
             return None
 
+    def get_totalshares(self):
+        results = self.db.query("select sum(number_shares) as totalshares from customers")
+        return results[0].totalshares
+
+    def get_numberofpatronage(self):
+        results = self.db.query("select sum(patronage) as patronage from customers")
+        return results[0].patronage
+
     def get_customerbyname(self,name):
         try:
             return self.db.select('customers', where='name=$name', vars=locals())[0]
         except IndexError:
             return None
 
-    def new_customer(self, name, numbershares, address, cellno, email):
-        self.db.insert('customers', name=name, number_shares=numbershares, address=address, cellno=cellno, email=email)
+    def new_customer(self, name, numbershares, patronage, address, cellno, email):
+        self.db.insert('customers', name=name, number_shares=numbershares, patronage=patronage, address=address, cellno=cellno, email=email)
 
     def del_customer(self,id):
         self.db.delete('customers', where="id=$id", vars=locals())
 
-    def update_customer(self, id, numbershares,address, cellno, email):
-        self.db.update('customers', where='id=$id', vars=locals(), number_shares=numbershares, address=address, cellno=cellno, email=email)
+    def update_customer(self, id, numbershares, patronage, address, cellno, email):
+        self.db.update('customers', where='id=$id', vars=locals(), number_shares=numbershares, patronage=patronage, address=address, cellno=cellno, email=email)
 
 
