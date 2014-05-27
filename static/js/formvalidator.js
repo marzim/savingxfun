@@ -208,4 +208,17 @@ $(document).ready(function(){
     if($('#patronage_hv').val() === '1'){
         $('#patronage').prop('checked', true);
     }
+
+    $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
+
+    function showDialogMessage(){
+        $( "#dialog-message" ).dialog({
+          modal: true,
+          buttons: {
+            Ok: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+    }
 });

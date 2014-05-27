@@ -1,0 +1,67 @@
+$def with (customersearned, savingsinterest, formatNumber)
+$var title = 'Interest Earned'
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Interest Amount Per Share</td>
+                <td><b>$formatNumber(savingsinterest.interestpershare)</b></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Patronage Percentage</td>
+                <td><b>$formatNumber(savingsinterest.patronagepercentage)</b></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Penalty Share</td>
+                <td><b>$formatNumber(savingsinterest.penaltyshare)</b></td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr class="success">
+            <th>Name</th>
+            <th>Interest + Penalty </br> Share</th>
+            <th>Patronage Share</th>
+        </tr>
+    </thead>
+    <tbody>
+    $for earned in customersearned:
+        <tr>
+            <td>$earned.name</td>
+            <td>$formatNumber(earned.interest)</td>
+            <td>$formatNumber(earned.patronage)</td>
+        </tr>
+    $code:
+        def get_totalinterest():
+            val = 0
+            for e in customersearned:
+                val += e.interest
+            return formatNumber(val)
+
+        def get_totalpatronage():
+            val = 0
+            for e in customersearned:
+                val += e.patronage
+            return formatNumber(val)
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <tr class="info">
+        <td><b>Total:</b></td>
+        <td><b>$get_totalinterest()</b></td>
+        <td><b>$get_totalpatronage()</b></td>
+    </tr>
+    </tbody>
+</table>
+

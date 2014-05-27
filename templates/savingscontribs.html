@@ -1,27 +1,76 @@
-$def with (dict)
+$def with (contributions,formatNumber)
 $var title = 'Contributions'
 
-<div class="container">
 <div class="breadcrumb">
     <div class="item"><a href="/savings/contributions">Contributions</a></div>
 </div>
-    <table class="table table-striped table-bordered table-condensed">
-        <tr>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr class="success">
             <th>Name</th>
             <th># shares</th>
             <th>Total</th>
             <th>Grand Total</th>
-            <th>Interest </br> Patronage Earned</th>
+            <th>Interest +</br> Patronage Earned</th>
             <th>Receivable</th>
         </tr>
-        $for d in dict:
-            <tr>
-                <td><a href="/savings/contributions/view/$d.custid">$d.name</a></td>
-                <td>$d.numberShares</td>
-                <td>$d.total</td>
-                <td>$d.grandTotal</td>
-                <td>$d.interestpat</td>
-                <td>$d.receivable</td>
-            </tr>
-    </table>
-</div>
+    </thead>
+    <tbody>
+    $for c in contributions:
+        <tr>
+            <td><a href="/savings/contributions/view/$c.custid">$c.name</a></td>
+            <td>$c.numberShares</td>
+            <td>$formatNumber(c.total)</td>
+            <td>$formatNumber(c.grandTotal)</td>
+            <td>$formatNumber(c.interestpat)</td>
+            <td>$formatNumber(c.receivable)</td>
+        </tr>
+    $code:
+        def get_customers():
+            val = 0
+            for c in contributions:
+                val += 1
+            return val
+
+        def get_totalshares():
+            val = 0
+            for c in contributions:
+                val += c.numberShares
+            return val
+
+        def get_total():
+            val = 0
+            for c in contributions:
+                val += c.total
+            return formatNumber(val)
+
+        def get_grandtotal():
+            val = 0
+            for c in contributions:
+                val += c.grandTotal
+            return formatNumber(val)
+
+        def get_totalinterest():
+            val = 0
+            for c in contributions:
+                val += c.interestpat
+            return formatNumber(val)
+
+        def get_totalreceivable():
+            val = 0
+            for c in contributions:
+                val += c.receivable
+            return formatNumber(val)
+
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <tr class="info">
+        <td><b>$get_customers()</b></td>
+        <td><b>$get_totalshares()</b></td>
+        <td><b>$get_total()</b></td>
+        <td><b>$get_grandtotal()</b></td>
+        <td><b>$get_totalinterest()</b></td>
+        <td><b>$get_totalreceivable()</b></td>
+    </tr>
+    </tbody>
+</table>
+

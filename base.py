@@ -11,6 +11,8 @@ urls = (
 '/register/?', 'register.Register',
 '/savings/?', 'savings.Savings',
 '/savings/contributions/?', 'savings.Contributions',
+'/savings/notes/?', 'savings.Notes',
+'/savings/notes/add/?', 'savings.AddNotes',
 '/savings/contributions/view/(\d+)', 'savings.ViewContributions',
 '/savings/contributions/add/(\d+)/(\d+)', 'savings.NewContributions',
 '/savings/guidelines/?', 'savings.Guidelines',
@@ -19,6 +21,7 @@ urls = (
 '/savings/loans/edit/(\d+)', 'savings.EditLoan',
 '/savings/customers/?', 'savings.Customers',
 '/savings/customers/add/?', 'savings.AddCustomer',
+'/savings/customers/interestearned/?', 'savings.CustomersEarned',
 '/errorpage/?','ErrorPage',
 '/savings/customers/edit/(\d+)', 'savings.EditCustomer',
 )
