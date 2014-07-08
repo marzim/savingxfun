@@ -1,5 +1,6 @@
-$def with (savings, formatNumber, wamount)
+$def with (savings, formatNumber, wamount, outstanding_bal, cashinbank, Decimal)
 $var title = 'Summary'
+
 
 <table class="table table-striped table-bordered table-condensed">
     <thead>
@@ -53,12 +54,18 @@ $var title = 'Summary'
                 val += s.total
             return formatNumber(val)
 
+        def get_cashinbankAndcashonhand():
+            val = 0
+            for s in savings:
+                val += s.total
+            return formatNumber(Decimal(val) + Decimal(cashinbank))
+
         def get_cashonhand():
             val = 0
             for s in savings:
                 val += s.total
             val -= wamount
-            return val
+            return formatNumber(val)
 
         def get_withdrawnamount():
             return formatNumber(wamount)
@@ -77,8 +84,25 @@ $var title = 'Summary'
         <td class="danger"><b>$get_withdrawnamount()</b></td></tr>
     <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
         <td class="warning"><b>Current COH:</b></td>
-        <td class="warning"><b>$formatNumber(get_cashonhand())</b></td>
+        <td class="warning"><b>$get_cashonhand()</b></td>
+    </tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+        <td class="warning"><b>Current CIB:</b></td>
+        <td class="warning"><b>$formatNumber(cashinbank)</b></td>
+    </tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+        <td class="warning"><b>Total CIB + COH</b></td>
+        <td class="warning"><b>$get_cashinbankAndcashonhand()</b></td>
+    </tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+        <td class="warning"><b>Outstanding receivable from Loan</b></td>
+        <td class="warning"><b>$outstanding_bal</b></td>
+    </tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+        <td class="warning"><b>Total payable to shareholders</b></td>
+        <td class="warning"><b>$get_totalamount()</b></td>
     </tr>
     </tbody>
 </table>
+
 

@@ -21,6 +21,8 @@ class SavingsModel:
     def get_notes(self):
         return self.db.select('notes', order='id DESC')
 
+
+
     def new_notes(self, date_add, amount, comments):
         self.db.insert('notes', date_add=date_add, amount=amount, comments=comments)
 
@@ -55,6 +57,14 @@ class SavingsModel:
             return self.db.select('entries', where='id=$id and userid='+ str(uid), vars=locals())[0]
         except IndexError:
             return None
+
+    def get_outstandingbal(self, myyear=date.today().year):
+        results = self.db.query("select sum(l.outstanding_bal) as outstanding_bal from loans l where year(l.date_rel) = " + str(myyear))
+        return results[0].outstanding_bal;
+
+    def get_cashinbank(self, myyear=date.today().year):
+        results = self.db.query("select sum(n.amount) as cashinbank from notes n where year(n.date_add) = " + str(myyear))
+        return results[0].cashinbank;
 
     def get_loan(self,id):
         try:

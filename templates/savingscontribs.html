@@ -4,6 +4,7 @@ $var title = 'Contributions'
 <div class="breadcrumb">
     <div class="item"><a href="/savings/contributions">Contributions</a></div>
 </div>
+
 <table class="table table-striped table-bordered table-condensed">
     <thead>
         <tr class="success">
@@ -13,6 +14,7 @@ $var title = 'Contributions'
             <th>Grand Total</th>
             <th>Interest +</br> Patronage Earned</th>
             <th>Receivable</th>
+            <th style="text-align:center">Exhausted?</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +26,15 @@ $var title = 'Contributions'
             <td>$formatNumber(c.grandTotal)</td>
             <td>$formatNumber(c.interestpat)</td>
             <td>$formatNumber(c.receivable)</td>
+            <td style="text-align:center">
+            <a href="#myModal" role="button" data-toggle="modal" data-customerid='$c.custid' data-customername='$c.name' data-description="$formatNumber(c.grandTotal)"
+            $if c.grandTotal==0:
+                class="btn btn-danger withdrawSavings disabled"
+            $else:
+                class="btn btn-danger withdrawSavings"
+            >Withdraw</a>
+
+            </td>
         </tr>
     $code:
         def get_customers():
@@ -62,7 +73,7 @@ $var title = 'Contributions'
                 val += c.receivable
             return formatNumber(val)
 
-    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
     <tr class="info">
         <td><b>$get_customers()</b></td>
         <td><b>$get_totalshares()</b></td>
@@ -70,7 +81,31 @@ $var title = 'Contributions'
         <td><b>$get_grandtotal()</b></td>
         <td><b>$get_totalinterest()</b></td>
         <td><b>$get_totalreceivable()</b></td>
+        <td>&nbsp;</td>
     </tr>
     </tbody>
 </table>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        	<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        			<h3 id="myModalLabel">Withdraw Savings?</h3>
+        	</div>
+        	<form id="withdrawSavingsForm" action='/savings/contributions/savingswithdraw' method="POST">
+            	<div class="modal-body">
+            	    <label for="customerName">Name:</label>
+            	    <input type="hidden" name="customerId" id="customerId" value="" />
+                    <input type="text" name="customerName" id="customerName" value="" readonly/>
+                    <label for="amountValue">Amount:</label>
+                    <input type="text" name="amountValue" id="amountValue" value="" readonly/>
+            	</div>
+            	<div class="modal-footer">
+            		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            		<button id="saveChanges" type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">OK</button>
+            	</div>
+            </form>
+        </div>
+	</div>
+</div>
 

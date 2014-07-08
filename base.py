@@ -24,6 +24,7 @@ urls = (
 '/savings/customers/interestearned/?', 'savings.CustomersEarned',
 '/errorpage/?','ErrorPage',
 '/savings/customers/edit/(\d+)', 'savings.EditCustomer',
+'/savings/contributions/savingswithdraw', 'savings.SavingsWithdraw',
 )
 
 app = web.application(urls, globals())

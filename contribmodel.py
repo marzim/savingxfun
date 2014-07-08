@@ -45,8 +45,11 @@ class ContributionModel:
         self.db.insert('contributions', month_id=month_id, custid=custid, amount=amount, ispenalty=ispenalty,
                         penalty=penalty, total=total, date_paid=datetime.datetime.utcnow(),withdrawn=0)
 
-    def update_contribution(self, id, month_id, custid, amount, ispenalty, penalty, total):
+    def update_contribution(self, id, month_id, custid, amount, ispenalty, penalty, total, withdrawn=0):
         self.db.update('contributions', where='id=$id', vars=locals(), month_id=month_id, custid=custid, amount=amount, ispenalty=ispenalty,
-                        penalty=penalty, total=total, date_paid=datetime.datetime.utcnow())
+                        penalty=penalty, total=total, date_paid=datetime.datetime.utcnow(), withdrawn=withdrawn)
+
+    def update_contributions_withdraw(self, custid, withdrawn=0, myyear=date.today().year):
+        self.db.update('contributions', where='custid=$custid and year(date_paid)=' + str(myyear), vars=locals(), withdrawn=withdrawn)
 
 

@@ -19,6 +19,8 @@ class Savings:
         if withprivilege():
             savings = []
             wamount = contribmodel.get_withdrawnamount()
+            outstanding_bal = model.get_outstandingbal()
+            cashinbank = model.get_cashinbank()
             if not wamount:
                 wamount = 0
             for month in range(1, 12):
@@ -34,7 +36,7 @@ class Savings:
                 savings.append(self.get_savingsSummary(month, calendar.month_name[month], contribamount, totalpenalty,
                         totalloan_amounts, totalloan_payments, total))
 
-            return render.savingssummary(savings,formatNumber, Decimal(wamount))
+            return render.savingssummary(savings,formatNumber, Decimal(wamount), formatNumber(outstanding_bal), cashinbank, Decimal)
         else:
             raise web.notfound()
 
@@ -67,6 +69,13 @@ class SavingsSummary(object):
         self.loan_payment=loan_payment
         self.total=total
 
+class SavingsWithdraw(object):
+
+    def POST(self):
+        if withprivilege():
+            data = web.input()
+            contribmodel.update_contributions_withdraw(data.customerId, 1)
+            raise web.seeother('/savings/contributions/')
 
 class Contributions:
 

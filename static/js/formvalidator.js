@@ -221,4 +221,28 @@ $(document).ready(function(){
           }
         });
     }
+
+    $('.withdrawSavings').click(function(e)
+    {
+        e.preventDefault();
+        var customerId = $(this).data('customerid');
+        var customerName = $(this).data('customername');
+        var customerAmount = $(this).data('description');
+        $(".modal-body #customerId").val(customerId);
+        $(".modal-body #customerName").val( customerName );
+        $(".modal-body #amountValue").val(customerAmount);
+    });
+
+    $("#saveChanges").click(function(e)
+    {
+        e.preventDefault();
+        $.ajax({
+            url: '/savings/contributions/savingswithdraw',
+            type: 'POST',
+            data: $('#withdrawSavingsForm').serialize(),
+        });
+        location.reload();
+    });
 });
+
+
