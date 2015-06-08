@@ -18,11 +18,9 @@ class Savings:
     def GET(self):
         if withprivilege():
             savings = []
-            wamount = contribmodel.get_withdrawnamount()
-            outstanding_bal = model.get_outstandingbal()
-            cashinbank = model.get_cashinbank()
-            if not wamount:
-                wamount = 0
+            wamount = contribmodel.get_withdrawnamount() if contribmodel.get_withdrawnamount() else 0
+            outstanding_bal = model.get_outstandingbal() if model.get_outstandingbal() else 0
+            cashinbank = model.get_cashinbank() if model.get_cashinbank() else 0
             for month in range(1, 12):
                 contribamount = 0
                 totalpenalty = 0
@@ -416,8 +414,9 @@ class SavingsInterestShare(object):
             interest = loan.total_payable - loan.amount
             totalinterest += interest
 
+        totalPenalty = contribmodel.get_totalpenalty() if contribmodel.get_totalpenalty() else 0
         savingsInterest.totalshares = custmodel.get_totalshares()
-        savingsInterest.penaltyshare = Decimal(contribmodel.get_totalpenalty()) / Decimal(savingsInterest.totalshares)
+        savingsInterest.penaltyshare = Decimal(totalPenalty) / Decimal(savingsInterest.totalshares)
         savingsInterest.patronagepercentage = totalinterest * (float(patronage) / 100)
         savingsInterest.interestpershare = (Decimal(totalinterest) - Decimal(savingsInterest.patronagepercentage)) / Decimal(savingsInterest.totalshares)
         return savingsInterest

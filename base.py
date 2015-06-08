@@ -34,7 +34,7 @@ session = web.session.Session(app, store, initializer={'login': 0, 'privilege': 
 web.config.smtp_server = 'smtp.gmail.com'
 web.config.smtp_port = 587
 web.config.smtp_username = 'savingxfun@gmail.com'
-web.config.smtp_password = 'mar_180)(*'
+web.config.smtp_password = 'savingxfun180'
 web.config.smtp_starttls = True
 
 t_globals = {
@@ -67,8 +67,9 @@ def superuser():
     else:
         return False
 
-def formatNumber(number):
-    return '{:20,.2f}'.format(number)
+def formatNumber(m_number):
+    number = m_number if m_number else 0
+    return '{:20,.2f}'.format(float(int(number)))
 
 def sendemail(to, subject, message):
     web.sendmail('savingxfun@gmail.com', to, subject, message)
