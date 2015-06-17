@@ -336,7 +336,8 @@ class AddCustomer:
     def POST(self):
         data = web.input()
         if not self.userisexist(data.name):
-            custmodel.new_customer(data.name, Decimal(data.numbershares), int(data.patronage_hv), data.address, data.cellno, data.email)
+            numberofshares = data.numbershares if data.numbershares else 0
+            custmodel.new_customer(data.name, Decimal(numberofshares), int(data.patronage_hv), data.address, data.cellno, data.email, int(data.member_hv))
             raise web.seeother("/savings/customers")
         else:
             return render.savingsnewcustomer({
@@ -368,7 +369,7 @@ class EditCustomer:
     def POST(self, id):
         data = web.input()
         try:
-            custmodel.update_customer(int(id), Decimal(data.numbershares), int(data.patronage_hv), data.address, data.cellno, data.email)
+            custmodel.update_customer(int(id), Decimal(data.numbershares), int(data.patronage_hv), data.address, data.cellno, data.email, int(data.member_hv))
             raise web.seeother("/savings/customers")
         except Exception as ex:
             print ex

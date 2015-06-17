@@ -209,6 +209,21 @@ $(document).ready(function(){
         $('#patronage').prop('checked', true);
     }
 
+    $('#ismember').click(function()
+    {
+        if($('#ismember').is(':checked')){
+            $('#member_hv').val(1);
+        }else{
+            $('#member_hv').val(0);
+            $('#numbershares').val(0);
+        }
+    });
+
+    if($('#member_hv').val() === '1'){
+        $('#ismember').prop('checked', true);
+        $('#collapseMemberPerks').collapse('show');
+    }
+
     $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
 
     function showDialogMessage(){

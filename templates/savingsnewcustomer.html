@@ -11,31 +11,48 @@ $if args['error']:
           <input type="text" class="form-control input-sm" style="width:40%;" placeholder="Name" id="name" name="name" required="" autofocus=""
             $if customer:
                 value="$customer['name']"
+
             $if args['state'] == "Edit":
                 readonly=""
             >
         </div>
     </div>
     <div class="form-group">
-        <label for="amount" class="col-sm-2 control-label"># of Shares</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control input-sm" style="width:40%;" placeholder="# of Shares" id="numbershares" name="numbershares" required=""
-            $if customer:
-                value="$customer['number_shares']"
-            >
-        </div>
-    </div>
-    <div class="form-group">
-        <input type='hidden' id="patronage_hv" name="patronage_hv"
+        <input type='hidden' id="member_hv" name="member_hv"
         $if customer:
-            value="$customer['patronage']"
+            value="$customer['member']"
         $else:
             value="0"
         >
         <label for="amount" class="col-sm-2 control-label">&nbsp;</label>
         <div class="col-6 col-sm-6 col-lg-4">
             <div class="checkbox">
-                <label><input type="checkbox" id="patronage" name="patronage">Patronage</label>
+                <label><input type="checkbox" id="ismember" name="ismember" data-toggle="collapse" data-target="#collapseMemberPerks" aria-expanded="false" aria-controls="collapseMemberPerks">Member</label>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="collapseMemberPerks">
+        <div class="form-group">
+            <label for="amount" class="col-sm-2 control-label"># of Shares</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control input-sm" style="width:40%;" placeholder="# of Shares" id="numbershares" name="numbershares" required=""
+                $if customer:
+                    value="$customer['number_shares']"
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <input type='hidden' id="patronage_hv" name="patronage_hv"
+            $if customer:
+                value="$customer['patronage']"
+            $else:
+                value="0"
+            >
+            <label for="amount" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-6 col-sm-6 col-lg-4">
+                <div class="checkbox">
+                    <label><input type="checkbox" id="patronage" name="patronage">Patronage</label>
+                </div>
             </div>
         </div>
     </div>
