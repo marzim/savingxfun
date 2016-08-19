@@ -14,4 +14,4 @@ import web
 class Model:
 
     def getDB(self):
-        return web.database(dbn='mysql', db='savingxfun$savings', user='savingxfun', pw='mustard_180', host='mysql.server')
+        return web.database(dbn='mysql', db='savingxfun$savings', user='savingxfun', pw='default_pw180', host='savingxfun.mysql.pythonanywhere-services.com')

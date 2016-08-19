@@ -21,8 +21,6 @@ class SavingsModel:
     def get_notes(self):
         return self.db.select('notes', order='id DESC')
 
-
-
     def new_notes(self, date_add, amount, comments):
         self.db.insert('notes', date_add=date_add, amount=amount, comments=comments)
 
